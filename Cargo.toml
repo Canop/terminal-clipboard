@@ -1,6 +1,6 @@
 [package]
 name = "terminal-clipboard"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Denys Seguret <cano.petrole@gmail.com>"]
 description = "a minimal cross-platform clipboard"
 repository = "https://github.com/Canop/terminal-clipboard"
