@@ -13,7 +13,7 @@ impl From<x11_clipboard::error::Error> for ClipboardError {
 pub fn get_string() -> Result<String, ClipboardError> {
     let clipboard = Clipboard::new()?;
     Ok(String::from_utf8(clipboard.load(
-        clipboard.getter.atoms.primary,
+        clipboard.getter.atoms.clipboard,
         clipboard.getter.atoms.utf8_string,
         clipboard.getter.atoms.property,
         Duration::from_secs(3),
@@ -23,7 +23,7 @@ pub fn get_string() -> Result<String, ClipboardError> {
 pub fn set_string<S: AsRef<str>>(s: S) -> Result<(), ClipboardError> {
     let clipboard = Clipboard::new()?;
     Ok(clipboard.store(
-        clipboard.getter.atoms.primary,
+        clipboard.setter.atoms.clipboard,
         clipboard.setter.atoms.utf8_string,
         s.as_ref(),
     )?)
