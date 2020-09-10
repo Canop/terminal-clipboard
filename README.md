@@ -4,7 +4,6 @@
 
 **terminal-clipboard** is a cross-platform clipboard library focused on strings copying and pasting for terminal applications:
 
-* it's cross-compilation friendly
 * it's tested on macos, linux, windows
 * it doesn't support Wayland (because you're in the terminal)
 * it doesn't handle other types of objects than strings
@@ -14,12 +13,20 @@ If this doesn't match your requirements, don't hesitate to search for another cr
 
 **terminal-clipboard** is only a facade over other, specialized, clipboard crates so have a look at its own dependencies if you want a system specific clipboard or capabilities going past just text.
 
-# Usage
+# Installation
 
 ```
 [dependencies]
 terminal_clipboard = "0.1"
 ```
+
+On linux you'll need to have `xorg-dev` and `libxcb-composite0-dev` to compile.
+
+On Debian and Ubuntu you can install them with
+
+	sudo apt install xorg-dev libxcb-composite0-dev
+
+# Usage
 
 
 ```
