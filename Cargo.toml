@@ -1,17 +1,23 @@
 [package]
 name = "terminal-clipboard"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Denys Seguret <cano.petrole@gmail.com>"]
 description = "a minimal cross-platform clipboard"
 repository = "https://github.com/Canop/terminal-clipboard"
-keywords = ["clipboard"]
+keywords = ["clipboard", "terminal"]
 readme = "README.md"
 edition = "2018"
 license = "MIT"
 
-[target.'cfg(target_os="windows")'.dependencies]
-clipboard-win = "4.0.0"
+[features]
+default = []
+termux = []
 
-#[target.'cfg(not(any(target_os="windows", target_os="macos")))'.dependencies]
+[dependencies]
+termux-clipboard = "0.1"
+
+[target.'cfg(target_os="windows")'.dependencies]
+clipboard-win = "4.0.3"
+
 [target.'cfg(not(any(target_os="windows")))'.dependencies]
 x11-clipboard = "0.5.1"

@@ -1,4 +1,3 @@
-use terminal_clipboard;
 
 fn main() {
     println!(

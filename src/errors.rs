@@ -1,10 +1,7 @@
-// #[derive(thiserror::Error, Debug)]
-// pub enum Error {
-//     #[error("System Clipboard Opening Error")]
-//     SystemClipboardOpening,
-// }
-
-use std::{fmt, string::FromUtf8Error};
+use std::{
+    fmt,
+    string::FromUtf8Error,
+};
 
 #[derive(Debug, Clone)]
 pub struct ClipboardError {
