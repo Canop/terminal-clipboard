@@ -14,7 +14,7 @@
 
 **terminal-clipboard** is a cross-platform clipboard library focused on strings copying and pasting for terminal applications:
 
-* it's tested on macos, linux, windows and Android (termux)
+* it's tested on linux, windows and Android (termux)
 * it doesn't support Wayland (because you're in the terminal)
 * it doesn't handle other types of objects than strings
 * it doesn't handle non UTF8 strings
@@ -25,7 +25,7 @@ If this doesn't match your requirements, don't hesitate to search for another cr
 
 ```
 [dependencies]
-terminal_clipboard = "0.2"
+terminal_clipboard = "0.2.1"
 ```
 
 # Usage
@@ -38,26 +38,13 @@ assert_eq!("test", terminal_clipboard::get_string().unwrap());
 
 # Supported platforms
 
-## Termux
+The implementation is currently chosen from the "target_os" part of the compilation target.
 
-A specific implementation is available, defering to the Termux API facilities to access the Android clipboard.
+## Android (Termux)
 
-You may either enable it statically (at compile time), or choose it dynamically (which may be useful when the same binary is used in several contexts).
+The current implementation will defer to Termux API facilities to access the Android clipboard, and won't work if the Termux API isn't available at runtime.
 
-### Enable the Termux API at compile time
-
-This is done by compiling with the "termux" feature:
-
-```TOML
-terminal-clipboard = { version="0.2", features=["termux"] }
-```
-
-In such a case, `terminal_clipboard::get_string` and `terminal_clipboard::set_string` are the Termux implementations.
-
-### Call dynamically
-
-If you don't enable the "termux" feature, `terminal_clipboard::get_string` and `terminal_clipboard::set_string` are the linux or windows implementations and you can decide to call the termux one by calling  `terminal_clipboard::termux::get_string` and `terminal_clipboard::termux::set_string`.
-
+If you know of solutions to access the Android clipboard without Termux, please open an issue.
 
 ## Linux
 

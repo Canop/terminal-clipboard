@@ -1,6 +1,6 @@
 [package]
 name = "terminal-clipboard"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Denys Seguret <cano.petrole@gmail.com>"]
 description = "a minimal cross-platform clipboard"
 repository = "https://github.com/Canop/terminal-clipboard"
@@ -11,13 +11,12 @@ license = "MIT"
 
 [features]
 default = []
-termux = []
 
-[dependencies]
+[target.'cfg(target_os="android")'.dependencies]
 termux-clipboard = "0.1"
 
 [target.'cfg(target_os="windows")'.dependencies]
 clipboard-win = "4.0.3"
 
-[target.'cfg(not(any(target_os="windows")))'.dependencies]
+[target.'cfg(not(any(target_os="windows",target_os="android")))'.dependencies]
 x11-clipboard = "0.5.1"

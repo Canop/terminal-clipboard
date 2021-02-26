@@ -19,8 +19,6 @@ assert_eq!("test", terminal_clipboard::get_string().unwrap());
 */
 
 mod errors;
-pub mod termux;
-
 pub use errors::ClipboardError;
 
 // #[cfg(target_os="macos")]
@@ -33,12 +31,14 @@ mod win;
 #[cfg(target_os = "windows")]
 pub use win::{get_string, set_string};
 
-#[cfg(feature = "termux")]
+#[cfg(target_os = "android")]
+mod termux;
+#[cfg(target_os = "android")]
 pub use termux::{get_string, set_string};
 
-#[cfg(not(any(target_os = "windows", feature = "termux")))]
+#[cfg(not(any(target_os="windows",target_os="android")))]
 mod x11;
-#[cfg(not(any(target_os = "windows", feature = "termux")))]
+#[cfg(not(any(target_os="windows",target_os="android")))]
 pub use x11::{get_string, set_string};
 
 
