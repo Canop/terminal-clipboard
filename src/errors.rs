@@ -13,6 +13,11 @@ impl From<String> for ClipboardError {
         Self { message }
     }
 }
+impl From<&str> for ClipboardError {
+    fn from(message: &str) -> Self {
+        Self { message: message.to_owned() }
+    }
+}
 
 impl fmt::Display for ClipboardError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {

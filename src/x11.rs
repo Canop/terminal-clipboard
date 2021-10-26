@@ -1,7 +1,9 @@
 use {
-    crate::errors::ClipboardError,
+    crate::{
+        Clipboard,
+        errors::ClipboardError,
+    },
     std::time::Duration,
-    x11_clipboard::{self, Clipboard},
 };
 
 impl From<x11_clipboard::error::Error> for ClipboardError {
@@ -10,21 +12,51 @@ impl From<x11_clipboard::error::Error> for ClipboardError {
     }
 }
 
-pub fn get_string() -> Result<String, ClipboardError> {
-    let clipboard = Clipboard::new()?;
-    Ok(String::from_utf8(clipboard.load(
-        clipboard.getter.atoms.clipboard,
-        clipboard.getter.atoms.utf8_string,
-        clipboard.getter.atoms.property,
-        Duration::from_secs(3),
-    )?)?)
+pub struct X11Clipboard {
+    backend: x11_clipboard::Clipboard,
 }
 
-pub fn set_string<S: AsRef<str>>(s: S) -> Result<(), ClipboardError> {
-    let clipboard = Clipboard::new()?;
-    Ok(clipboard.store(
-        clipboard.setter.atoms.clipboard,
-        clipboard.setter.atoms.utf8_string,
-        s.as_ref(),
-    )?)
+impl X11Clipboard {
+    pub fn new() -> Result<X11Clipboard, ClipboardError> {
+        let backend = x11_clipboard::Clipboard::new()?;
+        Ok(Self { backend })
+    }
+    /// return a X11 clipboard but only if it has been verified to
+    /// be correctly working
+    pub fn verified() -> Result<X11Clipboard, ClipboardError> {
+        let backend = x11_clipboard::Clipboard::new()?;
+        let mut clipboard = Self { backend };
+        let test = "test X11";
+        clipboard.set_string(test)?;
+        let res = clipboard.get_string()?;
+        if res == test.to_string() {
+            Ok(clipboard)
+        } else {
+            Err(ClipboardError::from("non compliand round trip"))
+        }
+    }
+}
+
+impl Clipboard for X11Clipboard {
+
+    fn get_type(&self) -> &'static str {
+        "X11"
+    }
+
+    fn get_string(&self) -> Result<String, ClipboardError> {
+        Ok(String::from_utf8(self.backend.load(
+            self.backend.getter.atoms.clipboard,
+            self.backend.getter.atoms.utf8_string,
+            self.backend.getter.atoms.property,
+            Duration::from_secs(2),
+        )?)?)
+    }
+
+    fn set_string(&mut self, s: &str) -> Result<(), ClipboardError> {
+        Ok(self.backend.store(
+            self.backend.setter.atoms.clipboard,
+            self.backend.setter.atoms.utf8_string,
+            s,
+        )?)
+    }
 }

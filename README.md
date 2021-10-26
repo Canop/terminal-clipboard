@@ -14,24 +14,13 @@
 
 **terminal-clipboard** is a cross-platform clipboard library focused on strings copying and pasting for terminal applications:
 
-* it's tested on linux, windows and Android (termux)
-* it doesn't support Wayland (because you're in the terminal)
+* it's tested on linux, windows and Android (Termux)
 * it doesn't handle other types of objects than strings
 * it doesn't handle non UTF8 strings
-
-If this doesn't match your requirements, don't hesitate to search for another crate: there are many ones with other goals.
-
-# Installation
-
-```
-[dependencies]
-terminal_clipboard = "0.2.1"
-```
 
 # Usage
 
 ```
-use terminal_clipboard;
 terminal_clipboard::set_string("test").unwrap();
 assert_eq!("test", terminal_clipboard::get_string().unwrap());
 ```
@@ -48,7 +37,7 @@ If you know of solutions to access the Android clipboard without Termux, please 
 
 ## Linux
 
-If a unix-like target is detected and the "termux" feature isn't enabled, terminal-clipboard uses the [x11-clipboard](https://crates.io/crates/x11-clipboard) crate. If you're only interested in this platform, you should use this crate directly.
+If a unix-like target is detected and the "termux" feature isn't enabled, terminal-clipboard uses the [x11-clipboard](https://crates.io/crates/x11-clipboard) crate.
 
 You'll need to have `xorg-dev` and `libxcb-composite0-dev` to compile.
 
@@ -59,4 +48,5 @@ On Debian and Ubuntu you can install them with
 ## Windows
 
 If the compilation target is "windows", terminal-clipboard uses the [clipboard-win](https://crates.io/crates/clipboard-win) crate. If you're only interested in this platform, you should use this crate directly.
+
 
