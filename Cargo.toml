@@ -19,4 +19,4 @@ termux-clipboard = "0.1"
 clipboard-win = "4.0.3"
 
 [target.'cfg(not(any(target_os="windows",target_os="android")))'.dependencies]
-x11-clipboard = "0.5.1"
+x11-clipboard = "0.5.3"
