@@ -26,9 +26,11 @@ impl X11Clipboard {
     pub fn verified() -> Result<X11Clipboard, ClipboardError> {
         let backend = x11_clipboard::Clipboard::new()?;
         let mut clipboard = Self { backend };
+        let previous = clipboard.get_string()?; // saving the old value
         let test = "test X11";
         clipboard.set_string(test)?;
         let res = clipboard.get_string()?;
+        clipboard.set_string(&previous)?;
         if res == test.to_string() {
             Ok(clipboard)
         } else {

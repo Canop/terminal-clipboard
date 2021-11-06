@@ -31,7 +31,9 @@ You'll need to have `xorg-dev` and `libxcb-composite0-dev` to compile.
 
 On Debian and Ubuntu you can install them with
 
-	sudo apt install xorg-dev libxcb-composite0-dev
+```bash
+sudo apt install xorg-dev libxcb-composite0-dev
+```
 
 ## Windows
 
