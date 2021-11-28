@@ -1,4 +1,9 @@
-use crate::{errors::ClipboardError, Clipboard};
+use {
+    crate::{
+        Clipboard,
+        errors::ClipboardError,
+    },
+};
 
 /// A clipboard with no access to outside the application.
 pub struct LocalClipboard {
@@ -14,6 +19,7 @@ impl LocalClipboard {
 }
 
 impl Clipboard for LocalClipboard {
+
     fn get_type(&self) -> &'static str {
         "Local"
     }

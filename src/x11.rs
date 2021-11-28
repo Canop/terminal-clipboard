@@ -1,5 +1,8 @@
 use {
-    crate::{errors::ClipboardError, Clipboard},
+    crate::{
+        Clipboard,
+        errors::ClipboardError,
+    },
     std::time::Duration,
 };
 
@@ -37,6 +40,7 @@ impl X11Clipboard {
 }
 
 impl Clipboard for X11Clipboard {
+
     fn get_type(&self) -> &'static str {
         "X11"
     }

@@ -1,5 +1,8 @@
 use {
-    crate::{errors::ClipboardError, Clipboard},
+    crate::{
+        Clipboard,
+        errors::ClipboardError,
+    },
     termux_clipboard::TermuxClipboardError,
 };
 
@@ -29,6 +32,7 @@ impl TermuxClipboard {
 }
 
 impl Clipboard for TermuxClipboard {
+
     fn get_type(&self) -> &'static str {
         "Termux"
     }
@@ -40,4 +44,7 @@ impl Clipboard for TermuxClipboard {
     fn set_string(&mut self, s: &str) -> Result<(), ClipboardError> {
         Ok(termux_clipboard::set_string(s)?)
     }
+
 }
+
+
