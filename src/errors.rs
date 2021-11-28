@@ -1,7 +1,4 @@
-use std::{
-    fmt,
-    string::FromUtf8Error,
-};
+use std::{fmt, string::FromUtf8Error};
 
 #[derive(Debug, Clone)]
 pub struct ClipboardError {
@@ -15,7 +12,9 @@ impl From<String> for ClipboardError {
 }
 impl From<&str> for ClipboardError {
     fn from(message: &str) -> Self {
-        Self { message: message.to_owned() }
+        Self {
+            message: message.to_owned(),
+        }
     }
 }
 
