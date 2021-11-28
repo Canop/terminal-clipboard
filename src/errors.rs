@@ -29,3 +29,5 @@ impl From<FromUtf8Error> for ClipboardError {
         ClipboardError::from("error interpreting as UTF8".to_string())
     }
 }
+
+impl std::error::Error for ClipboardError {}
