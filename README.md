@@ -39,11 +39,46 @@ If you know of solutions to access the Android clipboard without Termux, please 
 
 If a unix-like target is detected and the "termux" feature isn't enabled, terminal-clipboard uses the [x11-clipboard](https://crates.io/crates/x11-clipboard) crate.
 
-You'll need to have `xorg-dev` and `libxcb-composite0-dev` to compile.
+You'll need to have `libxcb` to compile.
 
 On Debian and Ubuntu you can install them with
 
-	sudo apt install xorg-dev libxcb-composite0-dev
+```
+sudo apt install libxcb1-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev -y
+```
+
+Fedora, Centos, Red Hat
+
+```
+sudo dnf install libxcb -y
+```
+
+openSUSE
+
+```
+sudo zypper --non-interactive install xorg-x11-util-devel libxcb-composite0 libxcb-render0 libxcb-shape0 libxcb-xfixes0
+```
+
+Arch Linux
+
+```
+sudo pacman -Syu --noconfirm libxcb
+```
+
+Alpine is not supported. For alpine you have to use [`musl`](https://wiki.musl-libc.org/functional-differences-from-glibc.html) instead of `gnu` and have to provide alternative behaviour.
+
+```
+#[cfg(not(target_env = "musl"))]
+{
+  terminal_clipboard::set_string(answer_text).unwrap();
+  assert_eq!(*answer_text, terminal_clipboard::get_string().unwrap());
+  println!("Text '{answer_text}' was copied to your clipboard")
+}
+#[cfg(target_env = "musl")]
+{
+  println!("{}", answer_text);
+}
+```
 
 ## Windows
 

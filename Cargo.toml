@@ -1,6 +1,6 @@
 [package]
 name = "terminal-clipboard"
-version = "0.3.1"
+version = "0.4.0"
 authors = ["Denys Seguret <cano.petrole@gmail.com>"]
 description = "a minimal cross-platform clipboard"
 repository = "https://github.com/Canop/terminal-clipboard"
@@ -23,3 +23,6 @@ clipboard-win = "4.5.0"
 
 [target.'cfg(not(any(target_os="windows",target_os="android")))'.dependencies]
 x11-clipboard = "0.7.1"
+
+[target.'cfg(target_os="macos")'.dependencies]
+clipboard_macos = "0.1"
