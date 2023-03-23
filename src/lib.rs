@@ -69,9 +69,9 @@ mod termux;
 #[cfg(target_os = "android")]
 pub use termux::TermuxClipboard;
 
-#[cfg(not(any(target_os="windows",target_os="android",target_os="macos")))]
+#[cfg(not(any(target_os = "windows", target_os = "android", target_os = "macos")))]
 mod x11;
-#[cfg(not(any(target_os="windows",target_os="android",target_os="macos")))]
+#[cfg(not(any(target_os = "windows", target_os = "android", target_os = "macos")))]
 pub use x11::X11Clipboard;
 
 use {once_cell::sync::Lazy, std::sync::Mutex};
@@ -109,7 +109,7 @@ pub fn new_clipboard() -> Box<dyn Clipboard + Send> {
         }
     }
 
-    #[cfg(not(any(target_os="windows",target_os="android",target_os="macos")))]
+    #[cfg(not(any(target_os = "windows", target_os = "android", target_os = "macos")))]
     {
         // we'll use the X11 clipboard, but only after having
         // checked it works. As nobody understants X11 anyway,

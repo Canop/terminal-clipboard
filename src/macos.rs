@@ -1,7 +1,4 @@
-use crate::{
-    errors::ClipboardError,
-    Clipboard,
-};
+use crate::{errors::ClipboardError, Clipboard};
 
 pub struct MacClipboard {
     backend: clipboard_macos::Clipboard,
