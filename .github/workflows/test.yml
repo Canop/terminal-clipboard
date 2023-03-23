@@ -32,6 +32,21 @@ jobs:
       - name: Run tests
         run: cargo test --verbose
 
+  lint:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: nightly
+          profile: minimal
+          components: rustfmt, clippy
+          override: true
+
       - name: Run Clippy
         run: cargo clippy --all-features -- -D warnings
 

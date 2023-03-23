@@ -1,9 +1,6 @@
-use {
-    crate::errors::ClipboardError,
-};
+use crate::errors::ClipboardError;
 
 pub trait Clipboard {
-
     fn get_type(&self) -> &'static str;
 
     fn get_string(&self) -> Result<String, ClipboardError>;

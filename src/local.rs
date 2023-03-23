@@ -1,9 +1,4 @@
-use {
-    crate::{
-        Clipboard,
-        errors::ClipboardError,
-    },
-};
+use crate::{errors::ClipboardError, Clipboard};
 
 /// A clipboard with no access to outside the application.
 pub struct LocalClipboard {

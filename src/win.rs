@@ -1,9 +1,4 @@
-use {
-    crate::{
-        Clipboard,
-        errors::ClipboardError,
-    },
-};
+use crate::{errors::ClipboardError, Clipboard};
 
 pub struct WinClipboard {}
 
@@ -14,7 +9,6 @@ impl WinClipboard {
 }
 
 impl Clipboard for WinClipboard {
-
     fn get_type(&self) -> &'static str {
         "Windows"
     }
@@ -28,5 +22,4 @@ impl Clipboard for WinClipboard {
         clipboard_win::set_clipboard_string(s)
             .map_err(|e| ClipboardError::from(format!("Windows clipboard error : {}", e,)))
     }
-
 }

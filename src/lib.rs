@@ -52,11 +52,7 @@ mod clipboard;
 mod errors;
 mod local;
 
-pub use {
-    clipboard::Clipboard,
-    errors::ClipboardError,
-    local::LocalClipboard,
-};
+pub use {clipboard::Clipboard, errors::ClipboardError, local::LocalClipboard};
 
 // #[cfg(target_os="macos")]
 // pub mod macos;
@@ -73,17 +69,15 @@ mod termux;
 #[cfg(target_os = "android")]
 pub use termux::TermuxClipboard;
 
-#[cfg(not(any(target_os="windows",target_os="android")))]
+#[cfg(not(any(target_os = "windows", target_os = "android")))]
 mod x11;
-#[cfg(not(any(target_os="windows",target_os="android")))]
+#[cfg(not(any(target_os = "windows", target_os = "android")))]
 pub use x11::X11Clipboard;
 
-use {
-    once_cell::sync::Lazy,
-    std::sync::Mutex,
-};
+use {once_cell::sync::Lazy, std::sync::Mutex};
 
-static CLIPBOARD: Lazy<Mutex<Box<dyn Clipboard + Send>>> = Lazy::new(|| Mutex::new(new_clipboard()));
+static CLIPBOARD: Lazy<Mutex<Box<dyn Clipboard + Send>>> =
+    Lazy::new(|| Mutex::new(new_clipboard()));
 
 /// Build a new clipboard.
 ///
@@ -102,12 +96,12 @@ pub fn new_clipboard() -> Box<dyn Clipboard + Send> {
         // we'll use the Termux clipboard, but only after having
         // checked it works. It fails for example when the
         // Termux API isn't available on the device
-        if let Ok(clipboard) =TermuxClipboard::verified() {
+        if let Ok(clipboard) = TermuxClipboard::verified() {
             return Box::new(clipboard);
         }
     }
 
-    #[cfg(not(any(target_os="windows",target_os="android")))]
+    #[cfg(not(any(target_os = "windows", target_os = "android")))]
     {
         // we'll use the X11 clipboard, but only after having
         // checked it works. As nobody understants X11 anyway,
@@ -154,4 +148,3 @@ mod clipboard_tests {
         assert_eq!(test, get_string().unwrap());
     }
 }
-
