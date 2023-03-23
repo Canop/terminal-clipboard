@@ -69,9 +69,9 @@ mod termux;
 #[cfg(target_os = "android")]
 pub use termux::TermuxClipboard;
 
-#[cfg(not(any(target_os = "windows", target_os = "android")))]
+#[cfg(not(any(target_os = "windows", target_os = "android", target_os = "macos")))]
 mod x11;
-#[cfg(not(any(target_os = "windows", target_os = "android")))]
+#[cfg(not(any(target_os = "windows", target_os = "android", target_os = "macos")))]
 pub use x11::X11Clipboard;
 
 use {once_cell::sync::Lazy, std::sync::Mutex};
