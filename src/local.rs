@@ -10,6 +10,12 @@ pub struct LocalClipboard {
     content: String,
 }
 
+impl Default for LocalClipboard {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl LocalClipboard {
     pub fn new() -> LocalClipboard {
         Self {
@@ -19,7 +25,6 @@ impl LocalClipboard {
 }
 
 impl Clipboard for LocalClipboard {
-
     fn get_type(&self) -> &'static str {
         "Local"
     }

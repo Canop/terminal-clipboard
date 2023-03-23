@@ -31,7 +31,7 @@ impl X11Clipboard {
         clipboard.set_string(test)?;
         let res = clipboard.get_string()?;
         clipboard.set_string(&previous)?;
-        if res == test.to_string() {
+        if res == *test {
             Ok(clipboard)
         } else {
             Err(ClipboardError::from("non compliand round trip"))
