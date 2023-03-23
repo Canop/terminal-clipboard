@@ -38,6 +38,13 @@ impl Clipboard for LocalClipboard {
 }
 
 #[test]
+fn test_default_clipboard() {
+    let new_clipboard = LocalClipboard::new();
+    let default_clipboard = LocalClipboard::default();
+    assert_eq!(new_clipboard.get_type(), default_clipboard.get_type());
+}
+
+#[test]
 fn test_local_clipboard() {
     let mut clipboard = LocalClipboard::new();
     assert_eq!(clipboard.get_type(), "Local");

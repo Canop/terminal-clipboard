@@ -17,4 +17,5 @@ fn main() {
         "New content of the clipboard: {:?}",
         terminal_clipboard::get_string().unwrap(),
     );
+    assert_eq!(terminal_clipboard::get_string().unwrap(), "TEST")
 }
