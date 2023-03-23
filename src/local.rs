@@ -1,13 +1,14 @@
-use {
-    crate::{
-        Clipboard,
-        errors::ClipboardError,
-    },
-};
+use crate::{errors::ClipboardError, Clipboard};
 
 /// A clipboard with no access to outside the application.
 pub struct LocalClipboard {
     content: String,
+}
+
+impl Default for LocalClipboard {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl LocalClipboard {
@@ -19,7 +20,6 @@ impl LocalClipboard {
 }
 
 impl Clipboard for LocalClipboard {
-
     fn get_type(&self) -> &'static str {
         "Local"
     }
@@ -35,6 +35,13 @@ impl Clipboard for LocalClipboard {
         self.content.push_str(s);
         Ok(())
     }
+}
+
+#[test]
+fn test_default_clipboard() {
+    let new_clipboard = LocalClipboard::new();
+    let default_clipboard = LocalClipboard::default();
+    assert_eq!(new_clipboard.get_type(), default_clipboard.get_type());
 }
 
 #[test]

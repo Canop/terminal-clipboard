@@ -2,7 +2,10 @@
 //!     cargo run --example write_read
 
 fn main() {
-    println!("Clipboard backend type: {:?}", terminal_clipboard::get_type());
+    println!(
+        "Clipboard backend type: {:?}",
+        terminal_clipboard::get_type()
+    );
     println!(
         "Initial content of the clipboard: {:?}",
         terminal_clipboard::get_string().unwrap(),
@@ -14,4 +17,5 @@ fn main() {
         "New content of the clipboard: {:?}",
         terminal_clipboard::get_string().unwrap(),
     );
+    assert_eq!(terminal_clipboard::get_string().unwrap(), "TEST")
 }

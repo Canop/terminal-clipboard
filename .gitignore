@@ -3,3 +3,4 @@
 Cargo.lock
 /compile-example.sh
 deploy.sh
+.idea
