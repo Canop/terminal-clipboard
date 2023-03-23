@@ -1,4 +1,4 @@
-/*!
+/*
 
 **terminal-clipboard** is a cross-platform clipboard library focused on strings copying and pasting for terminal applications:
 
