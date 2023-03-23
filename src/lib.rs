@@ -58,10 +58,10 @@ pub use {
     local::LocalClipboard,
 };
 
-// #[cfg(target_os="macos")]
-// pub mod macos;
-// #[cfg(target_os="macos")]
-// pub use macos::{get_string, set_string};
+#[cfg(target_os = "macos")]
+mod macos;
+#[cfg(target_os = "macos")]
+pub use macos::MacClipboard;
 
 #[cfg(target_os = "windows")]
 mod win;
@@ -73,9 +73,9 @@ mod termux;
 #[cfg(target_os = "android")]
 pub use termux::TermuxClipboard;
 
-#[cfg(not(any(target_os="windows",target_os="android")))]
+#[cfg(not(any(target_os="windows",target_os="android",target_os="macos")))]
 mod x11;
-#[cfg(not(any(target_os="windows",target_os="android")))]
+#[cfg(not(any(target_os="windows",target_os="android",target_os="macos")))]
 pub use x11::X11Clipboard;
 
 use {
@@ -97,6 +97,14 @@ pub fn new_clipboard() -> Box<dyn Clipboard + Send> {
         return Box::new(WinClipboard::new());
     }
 
+    #[cfg(target_os = "macos")]
+    {
+        // only use MacClipboard after it is verified.
+        if let Ok(clipboard) = MacClipboard::verified() {
+            return Box::new(clipboard);
+        }
+    }
+
     #[cfg(target_os = "android")]
     {
         // we'll use the Termux clipboard, but only after having
@@ -107,7 +115,7 @@ pub fn new_clipboard() -> Box<dyn Clipboard + Send> {
         }
     }
 
-    #[cfg(not(any(target_os="windows",target_os="android")))]
+    #[cfg(not(any(target_os="windows",target_os="android",target_os="macos")))]
     {
         // we'll use the X11 clipboard, but only after having
         // checked it works. As nobody understants X11 anyway,
@@ -154,4 +162,3 @@ mod clipboard_tests {
         assert_eq!(test, get_string().unwrap());
     }
 }
-
