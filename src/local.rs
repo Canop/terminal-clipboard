@@ -6,6 +6,7 @@ use {
 };
 
 /// A clipboard with no access to outside the application.
+#[derive(Default)]
 pub struct LocalClipboard {
     content: String,
 }
